@@ -24,6 +24,7 @@ func init() {
 
 // WRITE YOUR CODE BELOW
 var bDayMock = time.Now()
+var errPlaceholder = "[%d] expected: %v, got %v"
 
 func TestLen(t *testing.T) {
 	tData := []struct {
@@ -60,7 +61,7 @@ func TestLen(t *testing.T) {
 	for k, v := range tData {
 		got := v.p.Len()
 		if got != v.Expected {
-			t.Errorf("[%d] expected: %d, got %d", k, v.Expected, got)
+			t.Errorf(errPlaceholder, k, v.Expected, got)
 		}
 	}
 }
@@ -169,7 +170,7 @@ func TestLess(t *testing.T) {
 	for k, v := range tData {
 		sort.Slice(v.p, v.p.Less)
 		if v.p[0] != v.Expected[0] || v.p[1] != v.Expected[1] {
-			t.Errorf("[%d] expected: %v, got %v", k, v.p, v.Expected)
+			t.Errorf(errPlaceholder, k, v.p, v.Expected)
 		}
 	}
 }
@@ -222,7 +223,7 @@ func TestNew(t *testing.T) {
 			t.Errorf("[%d] error happend while not expected: %s", k, err.Error())
 		}
 		if got != nil && (got.rows != v.Expected.rows || got.cols != v.Expected.cols || !sliceMatch(got.data, v.Expected.data)) {
-			t.Errorf("[%d] expected: %v, got %v", k, v.Expected, got)
+			t.Errorf(errPlaceholder, k, v.Expected, got)
 		}
 	}
 }
@@ -245,7 +246,7 @@ func TestRows(t *testing.T) {
 		got := v.matrix.Rows()
 		for i, elem := range got {
 			if !sliceMatch(elem, v.Expected[i]) {
-				t.Errorf("[%d] expected: %v, got %v", k, v.Expected, got)
+				t.Errorf(errPlaceholder, k, v.Expected, got)
 				break
 			}
 		}
@@ -270,7 +271,7 @@ func TestCols(t *testing.T) {
 		got := v.matrix.Cols()
 		for i, elem := range got {
 			if !sliceMatch(elem, v.Expected[i]) {
-				t.Errorf("[%d] expected: %v, got %v", k, v.Expected, got)
+				t.Errorf(errPlaceholder, k, v.Expected, got)
 				break
 			}
 		}
@@ -312,7 +313,7 @@ func TestSet(t *testing.T) {
 	for k, v := range tData {
 		got := v.matrix.Set(v.row, v.col, 2)
 		if !sliceMatch(v.matrix.data, v.Expected.data) && got {
-			t.Errorf("[%d] expected: %v, got %v", k, v.Expected, v.matrix)
+			t.Errorf(errPlaceholder, k, v.Expected, v.matrix)
 		}
 	}
 }
